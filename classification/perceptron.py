@@ -50,20 +50,28 @@ class PerceptronClassifier:
         self.features = trainingData[0].keys() # could be useful later
         # DO NOT ZERO OUT YOUR WEIGHTS BEFORE STARTING TRAINING, OR
         # THE AUTOGRADER WILL LIKELY DEDUCT POINTS.
+        
 
+    
+        
         for iteration in range(self.max_iterations):
             print "Starting iteration ", iteration, "..."
             for i in range(len(trainingData)):
+                #Get the best guess from classify
+                perceptronGuess = self.classify(trainingData[i])[0]
+                realValue       = trainingLabels[i]
+                
+                if(perceptronGuess != realValue):
+                    #if the guess is not the actuall value update the weights with the data 
+                    
+                    self.weights[perceptronGuess] -= trainingData[i] 
+                    self.weights[realValue] += trainingData[i]
+                    
+                
+                
                 "*** YOUR CODE HERE ***"
                 
-                tData = trainingData[i]
-                guess = self.classify(tData)
-                print tData
-                if guess != trainingLabels[i]:
-                    #self.weights[trainingLabel[i]] += 
-                    print "hi"
                 
-                util.raiseNotDefined()
 
     def classify(self, data ):
         """
@@ -85,9 +93,8 @@ class PerceptronClassifier:
         """
         Returns a list of the 100 features with the greatest weight for some label
         """
-        featuresWeights = []
+ 
+        
 
-        "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
-
-        return featuresWeights
+        #Use the counter dictionary sort to sort weights[label] and return the first 100 elements
+        return self.weights[label].sortedKeys()[0:100]
