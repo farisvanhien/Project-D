@@ -57,14 +57,25 @@ class PerceptronClassifier:
         for iteration in range(self.max_iterations):
             print "Starting iteration ", iteration, "..."
             for i in range(len(trainingData)):
-                #Get the best guess from classify
-                perceptronGuess = self.classify(trainingData[i])[0]
-                realValue       = trainingLabels[i]
                 
-                if(perceptronGuess != realValue):
+                #Get the highest score 
+                
+                bestScore = 0
+                bestLabel = 0
+                
+                for labels in self.legalLabels:
+                    guess = (trainingData[i] *self.weights[labels])
+                    if(bestScore < guess):
+                        bestScore = guess
+                        bestLabel = labels
+                    
+
+                realValue       = trainingLabels[i]
+             
+                if(bestScore != realValue):
                     #if the guess is not the actuall value update the weights with the data 
                     
-                    self.weights[perceptronGuess] -= trainingData[i] 
+                    self.weights[bestLabel ] -= trainingData[i] 
                     self.weights[realValue] += trainingData[i]
                     
                 
