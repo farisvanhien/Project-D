@@ -58,8 +58,10 @@ class PerceptronClassifier:
             print "Starting iteration ", iteration, "..."
             for i in range(len(trainingData)):
                 
-                #Get the highest score 
-                
+                #For every label (numbers 1-9) we make a guess by
+                #multiplying the trainingData with the weight for that label
+                #We take the best guess
+              
                 bestScore = 0
                 bestLabel = 0
                 
@@ -71,10 +73,17 @@ class PerceptronClassifier:
                     
 
                 realValue       = trainingLabels[i]
-             
-                if(bestScore != realValue):
-                    #if the guess is not the actuall value update the weights with the data 
-                    
+                
+                print "The best guess we have for training data ",i," is: ",bestLabel, " we are certain with a score of ", bestScore , " the real value is " , realValue
+                
+                #If the best guess is not equal to the real value
+                #We adjust the real value weight to more likely 
+                #predict that label if we try it again
+                #we adjust the best label we guess negatively so 
+                #it wont be guessed as often later
+                
+                if(bestLabel != realValue):
+
                     self.weights[bestLabel ] -= trainingData[i] 
                     self.weights[realValue] += trainingData[i]
                     
