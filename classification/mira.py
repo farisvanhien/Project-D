@@ -60,10 +60,34 @@ class MiraClassifier:
         datum is a counter from features to values for those features
         representing a vector of values.
         """
-       
-       # for iteration in range(self.max_iterations):
-           # for i in range(len(trainingData)):
-                
+        #We want to do the same instead now for every stepsize
+        for cValue in Cgrid:
+            for iteration in range(self.max_iterations):
+                for i in range(len(trainingData)):
+                    
+
+                    bestScore = 0
+                    bestLabel = 0
+                    
+                    for labels in self.legalLabels:
+                        guess = (trainingData[i] *self.weights[labels])
+                        if(bestScore < guess):
+                            bestScore = guess
+                            bestLabel = labels
+                        
+
+                    realValue       = trainingLabels[i]
+                    
+                    print "The best guess we have for training data ",i," is: ",bestLabel, " we are certain with a score of ", bestScore , " the real value is " , realValue
+                    
+                    step = cValue
+                    
+                    
+                    if(bestLabel != realValue):
+
+                        self.weights[bestLabel ] -= trainingData[i] 
+                        self.weights[realValue] += trainingData[i]  
+             
             
        
        
