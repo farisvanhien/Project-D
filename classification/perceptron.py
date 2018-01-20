@@ -74,7 +74,7 @@ class PerceptronClassifier:
 
                 realValue       = trainingLabels[i]
                 
-                print "The best guess we have for training data ",i," is: ",bestLabel, " we are certain with a score of ", bestScore , " the real value is " , realValue
+                #print "The best guess we have for training data ",i," is: ",bestLabel, " we are certain with a score of ", bestScore , " the real value is " , realValue
                 
                 #If the best guess is not equal to the real value
                 #We adjust the real value weight to more likely 

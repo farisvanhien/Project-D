@@ -60,6 +60,7 @@ class MiraClassifier:
         datum is a counter from features to values for those features
         representing a vector of values.
         """
+       
         #We want to do the same instead now for every stepsize
         for cValue in Cgrid:
             for iteration in range(self.max_iterations):
@@ -78,15 +79,26 @@ class MiraClassifier:
 
                     realValue       = trainingLabels[i]
                     
-                    print "The best guess we have for training data ",i," is: ",bestLabel, " we are certain with a score of ", bestScore , " the real value is " , realValue
+                    #print "The best guess we have for training data ",i," is: ",bestLabel, " we are certain with a score of ", bestScore , " the real value is " , realValue
                     
-                    step = cValue
+                   
                     
                     
                     if(bestLabel != realValue):
-
-                        self.weights[bestLabel ] -= trainingData[i] 
-                        self.weights[realValue] += trainingData[i]  
+                        
+                        f = (self.weights[bestLabel] - self.weights[realValue])
+                        f *= trainingData[i]
+                        f += 1.0
+                        f /= (trainingData[i] * trainingData[i]) 
+                        f *= 2.0
+                        f = min(cValue, f)
+                        
+                        newTrainingData = trainingData[i].copy()
+                        for el in newTrainingData:
+                            newTrainingData[el] *= f
+                        
+                        self.weights[bestLabel ] -= newTrainingData
+                        self.weights[realValue] += newTrainingData
              
             
        
