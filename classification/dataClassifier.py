@@ -73,7 +73,7 @@ def enhancedFeatureExtractorDigit(datum):
 
     ## DESCRIBE YOUR ENHANCED FEATURES HERE...
     The enhanced feature used is the amount of continuous white pixel strings in a column.
-    This feature can help distinguish numbers that have loops in them.
+    This feature can help distinguish digits with vertical lines from those with loops.
     It checks for white pixels and if it finds one it starts a string and as soon as it
     finds a grey pixel it will end that string. It keeps track of how many times you started
     a string, so how many strings there are, and stores this as a feature for each column.
@@ -99,9 +99,6 @@ def enhancedFeatureExtractorDigit(datum):
         #store the amount of white strings the column has as a feature
         features[x] = whiteStrings  
     return features
-         
-
-    
     
     util.raiseNotDefined()
 
