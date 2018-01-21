@@ -71,33 +71,33 @@ def enhancedFeatureExtractorDigit(datum):
     You should return a util.Counter() of features
     for this datum (datum is of type samples.Datum).
 
-    ## DESCRIBE YOUR ENHANCED FEATURES HERE...
-    The enhanced feature used is the amount of continuous white pixel strings in a column.
-    This feature can help distinguish digits with vertical lines from those with loops.
-    It checks for white pixels and if it finds one it starts a string and as soon as it
-    finds a grey pixel it will end that string. It keeps track of how many times you started
-    a string, so how many strings there are, and stores this as a feature for each column.
-    ##
+    ##  DESCRIBE YOUR ENHANCED FEATURES HERE...
+    
+    The feature we used is one that detects edges.
+    By comparing each pixel to the one next to it, 
+    you know it's an edge if the value of the pixels 
+    are not equal to one another. By converting these 
+    boolean values to integers you can use these 
+    as features and get better results.
     """
     features =  basicFeatureExtractorDigit(datum)
-
+    
     "*** YOUR CODE HERE ***"
-    #check each column
+    #Detect edged
     for x in range(DIGIT_DATUM_WIDTH):
-        whiteStrings = 0    #the amount of strings of continuous white pixels
-        inString = False    #true if the pixel is within a white string
-        for y in range(DIGIT_DATUM_HEIGHT):
-            #get the pixel
-            p = datum.getPixel(x,y)
-            #beginning of a string
-            if p > 0 and not inString:
-                inString = True     #currently in a string
-                whiteStrings += 1   #increment the counter
-            #ends of a string
-            if p == 0 and inString:
-                inString = False    #out of a string
-        #store the amount of white strings the column has as a feature
-        features[x] = whiteStrings  
+        #you compare to the right pixel, but you can't if it doesn't exist
+        if x < DIGIT_DATUM_WIDTH - 1:
+            for y in range(DIGIT_DATUM_HEIGHT):
+                #you compare to the pixel next to it, but you can't if it doesn't exist
+                if y < DIGIT_DATUM_WIDTH - 1:
+                    #check if the pixel next to it is white
+                    isEdgeH = datum.getPixel(x,y) < datum.getPixel(x+1,y)
+                    isEdgeV = datum.getPixel(x,y) < datum.getPixel(x,y+1)
+                    #convert the bool to an int so you can use it as a feature
+                    features[(x,y,"edgeH")] = int(isEdgeH)
+                    features[(x,y,"edgeV")] = int(isEdgeV)
+    
+    
     return features
     
     util.raiseNotDefined()
