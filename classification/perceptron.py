@@ -52,8 +52,6 @@ class PerceptronClassifier:
         # THE AUTOGRADER WILL LIKELY DEDUCT POINTS.
         
 
-    
-        
         for iteration in range(self.max_iterations):
             print "Starting iteration ", iteration, "..."
             for i in range(len(trainingData)):
@@ -72,7 +70,7 @@ class PerceptronClassifier:
                         bestLabel = labels
                     
 
-                realValue       = trainingLabels[i]
+                realValue = trainingLabels[i]
                 
                 #print "The best guess we have for training data ",i," is: ",bestLabel, " we are certain with a score of ", bestScore , " the real value is " , realValue
                 
@@ -86,11 +84,7 @@ class PerceptronClassifier:
 
                     self.weights[bestLabel ] -= trainingData[i] 
                     self.weights[realValue] += trainingData[i]
-                    
-                
-                
-                "*** YOUR CODE HERE ***"
-                
+
                 
 
     def classify(self, data ):
@@ -113,8 +107,6 @@ class PerceptronClassifier:
         """
         Returns a list of the 100 features with the greatest weight for some label
         """
- 
-        
 
         #Use the counter dictionary sort to sort weights[label] and return the first 100 elements
         return self.weights[label].sortedKeys()[0:100]
