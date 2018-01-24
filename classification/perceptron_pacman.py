@@ -50,4 +50,13 @@ class PerceptronClassifierPacman(PerceptronClassifier):
             print "Starting iteration ", iteration, "..."
             for i in range(len(trainingData)):
                 "*** YOUR CODE HERE ***"
-                util.raiseNotDefined()
+                #Depending on the state we choose find the best action
+                #with classify function
+                guesses = self.classify([trainingData[i]])[0]
+                realValue       = trainingLabels[i]
+                
+                #If the guessed move is not the correct move we adjust the 
+                #single weight vector with the foodcount
+                if(guesses != realValue):
+                    self.weights -= trainingData[i][0][guesses]
+                    self.weights += trainingData[i][0][realValue]
