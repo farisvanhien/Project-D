@@ -146,19 +146,22 @@ def enhancedPacmanFeatures(state, action):
     """
     features = util.Counter()
     "*** YOUR CODE HERE ***"
-    features["STOP"] = int(action == 'Stop') * 100
-    
+        #high reward for stopping
+    stopFeatureScore= 0
+    if(action == 'Stop'):
+        stopFeatureScore = 100
+    features["Stop"] = stopFeatureScore
     
     #nextState = state.generateSuccessor(0, action)
     
-    food = nextState.getFood().asList()
-    nearestFood = 99999
-    for x, y in food:
-        dx = x - nextState.getPacmanPosition()[0]
-        dy = y - nextState.getPacmanPosition()[1]
-        distance = dx * dx + dy * dy
-        if distance < nearestFood:
-            nearestFood = distance
+    #food = nextState.getFood().asList()
+   # nearestFood = 99999
+    #for x, y in food:
+    #    dx = x - nextState.getPacmanPosition()[0]
+   #     dy = y - nextState.getPacmanPosition()[1]
+    #    distance = dx * dx + dy * dy
+   #     if distance < nearestFood:
+     #       nearestFood = distance
     #features["food"] = nearestFood
     
     #util.raiseNotDefined()
